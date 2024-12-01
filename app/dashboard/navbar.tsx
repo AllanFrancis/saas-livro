@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import Logo from '@/components/logo';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import Logo from "@/components/logo";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +10,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
-import { User } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { User } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Form from "next/form";
+import logoutAction from "../_actions/auth/logout-action";
 
 export default function Navbar({ userName }: { userName: string }) {
   const pathname = usePathname();
@@ -30,8 +32,8 @@ export default function Navbar({ userName }: { userName: string }) {
         <nav className="flex items-center space-x-4">
           <Link href="/dashboard" className="text-gray-700 hover:text-gray-900">
             <Button
-              variant={'link'}
-              className={cn(pathname === '/dashboard' ? 'underline' : '')}
+              variant={"link"}
+              className={cn(pathname === "/dashboard" ? "underline" : "")}
             >
               Livro do Mês
             </Button>
@@ -41,9 +43,9 @@ export default function Navbar({ userName }: { userName: string }) {
             className="text-gray-700 hover:text-gray-900"
           >
             <Button
-              variant={'link'}
+              variant={"link"}
               className={cn(
-                pathname === '/dashboard/minha-assinatura' ? 'underline' : ''
+                pathname === "/dashboard/minha-assinatura" ? "underline" : ""
               )}
             >
               Minha Assinatura
@@ -57,13 +59,17 @@ export default function Navbar({ userName }: { userName: string }) {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-4">
-              <DropdownMenuLabel className="font-light uppercase text-xs">
+              <DropdownMenuLabel className="font-semibold capitalize text-sm">
                 {userName}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <button>Logout</button>
-              </DropdownMenuItem>
+              <Form action={logoutAction}>
+                <DropdownMenuItem asChild>
+                  <Button variant="ghost" className="w-full">
+                    Logout
+                  </Button>
+                </DropdownMenuItem>
+              </Form>
             </DropdownMenuContent>
           </DropdownMenu>
         </nav>
